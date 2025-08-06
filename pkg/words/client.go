@@ -92,6 +92,8 @@ func (c *Client) GetChain(start, end string) ([]string, error) {
 		return nil, fmt.Errorf("error, end word '%s' not found", end)
 	}
 
+	startWord.CalcScore(endWord.Term)
+
 	traverse := &Traverse{
 		StartWord: startWord,
 		EndWord:   endWord,

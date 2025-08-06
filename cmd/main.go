@@ -45,6 +45,10 @@ func main() {
 		fmt.Fprint(os.Stderr, err)
 	}
 
+	if chain == nil {
+		return
+	}
+
 	fmt.Println("Best chain found:")
 	for _, word := range chain {
 		fmt.Println(word)

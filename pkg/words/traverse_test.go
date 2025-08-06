@@ -17,6 +17,7 @@ func TestPerform(t *testing.T) {
 				},
 			},
 		},
+		Score: 1,
 	}
 
 	tests := []struct {

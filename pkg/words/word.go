@@ -4,6 +4,7 @@ package words
 type Word struct {
 	Term        string
 	LinkedWords []*Word
+	Score       int
 }
 
 // Link would seek linked words for the given word on a word's dictionary.
@@ -16,6 +17,32 @@ func (w *Word) Link(words []*Word) {
 	for i := 0; i < len(words); i++ {
 		if w.isLinkable(*words[i]) {
 			w.LinkedWords = append(w.LinkedWords, words[i])
+		}
+	}
+}
+
+// CalcScore method will calculate a score for the given word based on the
+// same chars at the same position compared with a target word.
+//
+// target: The give word as string to compare to
+//
+// Ex:
+// Given foo & feo
+// f o o
+// 1 0 1 = 2 Score
+// f e o
+//
+// Given foo & bar
+// f o o
+// 0 0 0 = 0 Score
+// b a r
+//
+// Returns nothing.
+func (w *Word) CalcScore(target string) {
+	w.Score = 0
+	for i := 0; i < len(w.Term); i++ {
+		if w.Term[i] == target[i] {
+			w.Score += 1
 		}
 	}
 }

@@ -44,3 +44,37 @@ func TestLink(t *testing.T) {
 		})
 	}
 }
+
+func TestCalcScore(t *testing.T) {
+	tests := []struct {
+		Description   string
+		Word          Word
+		EndWord       string
+		ExpectedScore int
+	}{
+		{
+			Description:   "when CalcScore succesfully calculates an score for two words",
+			Word:          Word{Term: "foo"},
+			EndWord:       "feo",
+			ExpectedScore: 2,
+		},
+		{
+			Description:   "when CalcScore succesfully calculates an score for two words",
+			Word:          Word{Term: "foo"},
+			EndWord:       "bar",
+			ExpectedScore: 0,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.Description, func(t *testing.T) {
+			test.Word.CalcScore(test.EndWord)
+
+			if !reflect.DeepEqual(test.Word.Score, test.ExpectedScore) {
+				t.Fatalf("expected ExpectedScore to be %v, got %v",
+					test.ExpectedScore,
+					test.Word.Score)
+			}
+		})
+	}
+}
